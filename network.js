@@ -70,7 +70,6 @@ function simulatePropagation() {
 
         // Check if any mining peer has received the message
         const miningPeersReceived = [...miningPeerIndices].some(index => visited.has(index));
-        console.log("visited: " + visited.size + " seen by miner: " + miningPeersReceived);
 
         // Add result to the table
         const row = resultsTableBody.insertRow();
