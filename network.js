@@ -46,10 +46,10 @@ function simulatePropagation() {
             peer.connections = Array.from(connectedPeers);
         }
 
-        // Start message propagation
+        // Start message propagation from random peer
         const initialPeer = Math.floor(Math.random() * numPeers);
         const visited = new Set();
-        const queue = [initialPeer];
+        const queue = [...peers[initialPeer].connections];
 
         while (queue.length > 0) {
             const currentPeer = queue.shift();
@@ -70,6 +70,7 @@ function simulatePropagation() {
 
         // Check if any mining peer has received the message
         const miningPeersReceived = [...miningPeerIndices].some(index => visited.has(index));
+        console.log("visited: " + visited.size + " seen by miner: " + miningPeersReceived);
 
         // Add result to the table
         const row = resultsTableBody.insertRow();
@@ -94,6 +95,6 @@ function simulatePropagation() {
     // Calculate filter success rate
     const filterSuccessRate = (propagationFailures / numSimulations) * 100;
     const filterSuccessElement = document.getElementById('filterSuccessRate');
-    filterSuccessElement.textContent = `Filter Success Rate: ${filterSuccessRate.toFixed(2)}%`;
+    filterSuccessElement.textContent = `Filter success rate: ${filterSuccessRate.toFixed(2)}%`;
 
 }
